@@ -1,0 +1,36 @@
+[package]
+name = "fuzzer_example_one"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "example_fuzzer_one"
+crate-type = ["staticlib"]
+
+[dependencies]
+libafl = "0.14.1"
+libafl_bolts = "0.14.1"
+libafl_targets = { version = "0.14.1", features = [
+	"sancov_pcguard_hitcounts",
+] }
+
+libc = "0.2"
+serde = "1.0.215"
+ahash = "0.8.11"
+log = "0.4.22"
+rand_core = "0.6.4"
+rand_chacha = "0.3.1"
+rand = "0.8.5"
+
+[build-dependencies]
+cc = "1.0"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+opt-level = 3
+debug = true
